@@ -1,0 +1,19 @@
+{
+  "name": "lotto-app-react",
+  "version": "1.0.0",
+  "description": "The infamous lottoApp build using react... Promise is the last one. Or not :)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/byverdu/lottoApp-react.git"
+  },
+  "author": "albert vallverde <@byverdu>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/byverdu/lottoApp-react/issues"
+  },
+  "homepage": "https://github.com/byverdu/lottoApp-react#readme"
+}
