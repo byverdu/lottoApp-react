@@ -94,5 +94,41 @@ describe( 'Utils methods', () => {
         expect( bono[0] < bono[1] < bono[2]).to.eq( true );
       }
     });
+  });
+  describe( 'sortBy method', () => {
+    let sortBy;
+    beforeEach(() => {
+      sortBy = sinon.spy(
+        utils,
+        'sortBy'
+      );
+    });
+    afterEach(() => {
+      sortBy.restore();
+    });
+    it( 'is defined', () => {      
+      expect( utils ).to.have.property( 'sortBy' )
+        .and.is.a( 'Function' );
+    });
+    it( 'accepts one string parameter', () => {
+      utils.sortBy( 'count', []);
+      expect( sortBy ).to.have.been.calledWithExactly( 'count', []);
+    });
+    it( 'sorts by count or index', () => {
+      const data = [
+        {
+          count: 4,
+          index: 3
+        },
+        {
+          count: 5,
+          index: 1
+        }
+      ]
+      const count = utils.sortBy( 'count', data );
+      expect( data[0].count ).eq( 5 );
+      const index = utils.sortBy( 'index', data );
+      expect( data[0].index ).eq( 1 );
+    });
   })    
 });

@@ -28,7 +28,7 @@ const LOTTO_ID = {
  */
 export const utils = {
   /**
-   * @method
+   * @method serviceApi
    * @description Call Api endpoints
    * @param {string} enPoint last string for endpoint URL
    * @returns {Promise} from axios npm package
@@ -41,7 +41,7 @@ export const utils = {
   },
 
   /**
-   * @method
+   * @method getRandomNumbers
    * @description Gets random numbers for a specific lottoId
    * @param {string} lottoId raffle id to work with
    * @returns {Array} Sorted random numbers
@@ -59,6 +59,26 @@ export const utils = {
       }
     }
     return randomNumbers.sort(( a, b ) => a - b);
+  },
+
+  /**
+   * @method sortBy
+   * @description Sorts an array by property specified
+   * @param {string} type property to sort against
+   * @param {Array} data array to sort
+   * @returns void
+   */
+  sortBy: ( type, data ) => {
+    switch( type ) {
+      case 'count':
+        data.sort(( a, b ) => b.count - a.count);
+        break;
+      case 'index':
+        data.sort(( a, b ) => a.index - b.index);
+        break;
+      default:
+        break;
+    }
   }
 };
   
