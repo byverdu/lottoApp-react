@@ -63,4 +63,36 @@ describe( 'Utils methods', () => {
         });
     });
   });
+  describe( 'getRandomNumbers method', () => {
+    let getRandomNumbers;
+    beforeEach(() => {
+      getRandomNumbers = sinon.spy(
+        utils,
+        'getRandomNumbers'
+      );
+    });
+    afterEach(() => {
+      getRandomNumbers.restore();
+    });
+    it( 'is defined', () => {      
+      expect( utils ).to.have.property( 'getRandomNumbers' )
+        .and.is.a( 'Function' );
+    });
+    it( 'accepts one lottoId parameter', () => {
+      utils.getRandomNumbers( 'euromillions');
+      expect( getRandomNumbers ).to.have.been.calledWith( 'euromillions' );
+    });
+    it( 'returns an Array, with same length than ball in raffle', () => {
+      const euro = utils.getRandomNumbers( 'euromillions');
+      expect( getRandomNumbers ).to.have.returned( euro );
+      expect( euro ).to.have.length( 5 );    
+    });
+    it( 'returns an Array, with random numbers', () => {
+      for (let i = 1; i <= 49; i++) {
+        const bono = utils.getRandomNumbers( 'bonoloto');
+        expect( bono.indexOf( 50 )).to.eq( -1 );
+        expect( bono[0] < bono[1] < bono[2]).to.eq( true );
+      }
+    });
+  })    
 });
