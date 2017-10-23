@@ -1,8 +1,12 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": "react-app",  
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
   "rules": {
-    "indent": [2],
     "comma-dangle": [2, "never"],
     "react/jsx-indent-props": [2, 4],
     "space-in-parens": [2, "always", { "exceptions": ["()","{}","[]"] } ],
@@ -10,6 +14,7 @@
   },
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "browser": true
   }
 }

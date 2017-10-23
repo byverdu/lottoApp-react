@@ -36,7 +36,7 @@ export const utils = {
   serviceApi: ( endPoint ) => {
     const BASE_URL = 'http://api.byverdu.es/';
 
-    return axios.get( `${BASE_URL}${endPoint}`)
+    return axios.get( `${BASE_URL}${endPoint}` )
       .then( data => data );
   },
 
@@ -53,12 +53,12 @@ export const utils = {
 
     while ( counter <= data.count ) {
       const random = Math.floor( Math.random() * data.totalBalls );      
-      if (randomNumbers.indexOf(random) === -1) {
-        randomNumbers.push(random);
+      if ( randomNumbers.indexOf( random ) === -1 ) {
+        randomNumbers.push( random );
         counter += 1;
       }
     }
-    return randomNumbers.sort(( a, b ) => a - b);
+    return randomNumbers.sort(( a, b ) => a - b );
   },
 
   /**
@@ -71,25 +71,33 @@ export const utils = {
   sortBy: ( type, data ) => {
     switch( type ) {
       case 'count':
-        data.sort(( a, b ) => b.count - a.count);
+        data.sort(( a, b ) => b.count - a.count );
         break;
       case 'index':
-        data.sort(( a, b ) => a.index - b.index);
+        data.sort(( a, b ) => a.index - b.index );
         break;
       default:
         break;
     }
   },
 
+  /**
+   * @method checkRepeated
+   * @description check what balls are repeated between last result
+   * and saved combinations
+   * @param {Array} lastResult array with last result
+   * @param {Array} savedCombinations array with saved combinations
+   * @returns {Array} with indexes for repeated items
+   */
   checkRepeated: ( lastResult, savedCombinations ) => {
     const repeatedPositions = [];
-    const isRepeated = (saved) => lastResult.indexOf(saved) !== -1
+    const isRepeated = ( saved ) => lastResult.indexOf( saved ) !== -1
 
-    savedCombinations.forEach( item => {
+    savedCombinations.forEach( parent => {
       const temp = [];
-      item.forEach((item2, index) => {
-        if (isRepeated(item2)) {
-          temp.push( index );
+      parent.forEach(( children, position ) => {
+        if ( isRepeated( children )) {
+          temp.push( position );
         }
       });
       repeatedPositions.push( temp );
@@ -97,4 +105,3 @@ export const utils = {
     return repeatedPositions;
   }
 };
-  
