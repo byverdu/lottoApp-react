@@ -103,5 +103,16 @@ export const utils = {
       repeatedPositions.push( temp );
     });
     return repeatedPositions;
+  },
+
+  /**
+   * @method splitString
+   * @description split a string with delimeter specified
+   * @param {String} string string to work with
+   * @param {String} delimiter delimiter to use
+   * @returns {Array} with containing the string
+   */
+  splitString: ( string, delimiter ) => {
+    return string.split( delimiter ).map( item => item.trim());
   }
 };

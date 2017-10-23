@@ -8,10 +8,10 @@ chai.use( sinonChai );
 
 function getLottos() {
   const data = {
-    "lottos": [
-    "primitiva",
-    "euromillions",
-    "bonoloto"
+    'lottos': [
+    'primitiva',
+    'euromillions',
+    'bonoloto'
     ]
   };
 
@@ -133,11 +133,11 @@ describe( 'Utils methods', () => {
   });
   describe( 'checkRepeated method', () => {
     let checkRepeated;
-    const lastResult = ["08", "11", "23", "34", "45"];
-    const simpleSaved = [["08", "13", "33", "34", "48"]];
+    const lastResult = ['08', '11', '23', '34', '45'];
+    const simpleSaved = [['08', '13', '33', '34', '48']];
     const doubleSaved = [
-      ["08", "13", "33", "34", "48"],
-      ["11", "23", "33", "34", "48"]
+      ['08', '13', '33', '34', '48'],
+      ['11', '23', '33', '34', '48']
     ];
     beforeEach(() => {
       checkRepeated = sinon.spy(
@@ -165,4 +165,17 @@ describe( 'Utils methods', () => {
       expect( checkRepeated ).to.have.returned([[0, 3], [0,1,3]]);
     });
   });
+  describe( 'splitString method', () => {
+    it( 'is defined', () => {      
+      expect( utils ).to.have.property( 'splitString' )
+        .and.is.a( 'Function' );
+    });
+    it( 'is defined', () => {      
+      expect( utils ).to.have.property( 'splitString' )
+        .and.is.a( 'Function' );
+    });
+    it( 'splits a string for a specified delimiter', () => {   const data = '04, 17,23,27,30';
+      expect( utils.splitString( data, ',' )).to.eql([ '04' ,'17', '23', '27', '30' ]);
+    });
+  });    
 });
