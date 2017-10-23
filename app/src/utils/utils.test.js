@@ -130,5 +130,21 @@ describe( 'Utils methods', () => {
       const index = utils.sortBy( 'index', data );
       expect( data[0].index ).eq( 1 );
     });
-  })    
+  });
+  describe( 'checkRepeated method', () => {
+    let checkRepeated;
+    beforeEach(() => {
+      checkRepeated = sinon.spy(
+        utils,
+        'checkRepeated'
+      );
+    });
+    afterEach(() => {
+      checkRepeated.restore();
+    });
+    it( 'is defined', () => {      
+      expect( utils ).to.have.property( 'checkRepeated' )
+        .and.is.a( 'Function' );
+    });
+  });
 });
