@@ -133,6 +133,12 @@ describe( 'Utils methods', () => {
   });
   describe( 'checkRepeated method', () => {
     let checkRepeated;
+    const lastResult = ["08", "11", "23", "34", "45"];
+    const simpleSaved = [["08", "13", "33", "34", "48"]];
+    const doubleSaved = [
+      ["08", "13", "33", "34", "48"],
+      ["11", "23", "33", "34", "48"]
+    ];
     beforeEach(() => {
       checkRepeated = sinon.spy(
         utils,
@@ -145,6 +151,18 @@ describe( 'Utils methods', () => {
     it( 'is defined', () => {      
       expect( utils ).to.have.property( 'checkRepeated' )
         .and.is.a( 'Function' );
+    });
+    it( 'accepts two arrays as parameters', () => {
+      utils.checkRepeated( lastResult, simpleSaved );
+      expect( checkRepeated ).to.have.been.calledWithExactly( lastResult, simpleSaved );
+    });
+    it( 'checks for repeated values', () => {
+      utils.checkRepeated( lastResult, simpleSaved );
+      expect( checkRepeated ).to.have.returned( [[0, 3]] );
+    });
+    it( 'checks for repeated values', () => {
+      utils.checkRepeated( lastResult, doubleSaved );
+      expect( checkRepeated ).to.have.returned( [[0, 3], [0,1,3]] );
     });
   });
 });

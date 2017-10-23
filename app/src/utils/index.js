@@ -81,6 +81,20 @@ export const utils = {
     }
   },
 
-  checkRepeated: () => {}
+  checkRepeated: ( lastResult, savedCombinations ) => {
+    const repeatedPositions = [];
+    const isRepeated = (saved) => lastResult.indexOf(saved) !== -1
+
+    savedCombinations.forEach( item => {
+      const temp = [];
+      item.forEach((item2, index) => {
+        if (isRepeated(item2)) {
+          temp.push( index );
+        }
+      });
+      repeatedPositions.push( temp );
+    });
+    return repeatedPositions;
+  }
 };
   
