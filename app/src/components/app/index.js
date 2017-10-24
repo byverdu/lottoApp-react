@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
+import Button from 'material-ui/Button';
 
 export default class App extends Component {
+
+  componentDidMount() {
+
+  }
+
   render() {
     return (
-      <div className="App">
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <main className="lottoApp">
+        <h2 className="lottoApp__title">
+          Home
+        </h2>
+        <section className="lottoApp__section">
+          <Button>
+            xoxo
+          </Button>
+          <Button>
+            xooxo
+          </Button>
+          <Button>
+            xllxlxl
+          </Button >
+        </section>
+      </main>
     );
   }
 }
