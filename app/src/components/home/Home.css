@@ -1,0 +1,10 @@
+.lottoApp {
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative; }
+
+.AppBar {
+  width: 500px !important;
+  margin: 0 auto;
+  left: 0;
+  text-align: center; }
