@@ -6,7 +6,6 @@ import Home from '../components/home';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import AppBar from 'material-ui/AppBar';
-import Paper from 'material-ui/Paper';
 
 const expect = chai.expect;
 let wrapper;

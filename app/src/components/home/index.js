@@ -17,17 +17,17 @@ export default class Home extends Component {
 
   componentDidMount() {
     utils.serviceApi( 'lottos' )
-      .then(resp => this.setState({buttons: resp.data.lottos}));
+      .then( resp => this.setState({buttons: resp.data.lottos}));
   }
 
-  buttonsRenderer(buttons) {
-    return buttons.map((item, index) => (
-        <Grid key={index} item lg={12}>
-          <Button>
-            {item}
-          </Button >
-        </Grid >
-      )
+  buttonsRenderer( buttons ) {
+    return buttons.map(( item, index ) => (
+      <Grid key={index} item lg={12}>
+        <Button>
+          {item}
+        </Button >
+      </Grid >
+    )
     );
   }
 
@@ -35,12 +35,12 @@ export default class Home extends Component {
     return (
       <main className="lottoApp">
         <Grid
-          container
-          alignItems="center"
-          justify="center"
-          wrap="nowrap"
-          direction="column"
-        >
+        container
+        alignItems="center"
+        justify="center"
+        wrap="nowrap"
+        direction="column"
+      >
           <Grid item xs={12}>
             <AppBar
               className="AppBar"
@@ -59,7 +59,7 @@ export default class Home extends Component {
           direction="column"
         >
           <Paper elevation={4}>
-            {this.buttonsRenderer(this.state.buttons)}
+            {this.buttonsRenderer( this.state.buttons )}
           </Paper>
         </Grid >
       </main>
