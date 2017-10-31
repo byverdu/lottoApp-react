@@ -70,14 +70,14 @@ export const utils = {
    */
   sortBy: ( type, data ) => {
     switch( type ) {
-      case 'count':
-        data.sort(( a, b ) => b.count - a.count );
-        break;
-      case 'index':
-        data.sort(( a, b ) => a.index - b.index );
-        break;
-      default:
-        break;
+    case 'count':
+      data.sort(( a, b ) => b.count - a.count );
+      break;
+    case 'index':
+      data.sort(( a, b ) => a.index - b.index );
+      break;
+    default:
+      break;
     }
   },
 

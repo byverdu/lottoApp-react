@@ -3,16 +3,20 @@ import ReactDOM from 'react-dom';
 import App from './components/app';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { changeColorReducer } from './redux/index';
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './redux/index';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 
-const state = {
-  color: 'yellow'
-}
-const store = createStore( changeColorReducer );
+const loggerMiddleware = createLogger();
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+    thunkMiddleware, // lets us dispatch() functions
+    loggerMiddleware // neat middleware that logs actions
+  )
+);
 
-
-console.log(store)
 ReactDOM.render(
   <Provider store={store}>
     <App />

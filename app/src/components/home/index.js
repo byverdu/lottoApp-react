@@ -4,8 +4,7 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
-import { utils } from '../../utils';
-import { changeColorAction } from '../../redux/index';
+import { fetchLottos, preFetch } from '../../redux/index';
 import { connect } from 'react-redux';
 
 class Home extends Component {
@@ -13,29 +12,27 @@ class Home extends Component {
     super( props );
     this.state = {
       buttons: [],
-      color: props.color
-    }
-    this.handleClick = this.handleClick.bind( this );
-  }
-
-  handleClick( dispatch ) {
-    // @ts-ignore
-    this.props.dispatch( changeColorAction( this.refs.color.value ));
-  }
-
-  componentWillReceiveProps( nextProps ) {
-    console.log( nextProps, this.state, 'componentWillReceiveProps' );
-    if ( nextProps.color !== this.state.color ) {
-      this.setState({color: nextProps.color }, () => {
-        this.refs.title.style.color = this.state.color;      
-      });
+      isLoading: this.props.dispatch( preFetch()).isFetching
     }
   }
+
+  // componentWillReceiveProps( nextProps ) {
+  //   if ( nextProps.color !== this.state.color ) {
+  //     this.setState({color: nextProps.color }, () => {
+  //       this.refs.title.style.color = this.state.color;      
+  //     });
+  //   }
+  // }
 
   componentDidMount() {
-    this.refs.title.style.color = this.state.color;
-    utils.serviceApi( 'lottos' )
-      .then( resp => this.setState({buttons: resp.data.lottos}));
+    this.props.dispatch(
+      fetchLottos( 'lottos' ))
+      .then( resp => this.setState({
+        buttons: resp.json.data.lottos
+      }, () => this.setState({
+        isLoading: resp.isFetching
+      }))
+      );
   }
 
   buttonsRenderer( buttons ) {
@@ -51,6 +48,11 @@ class Home extends Component {
 
   render() {
     return (
+      this.state.isLoading ? 
+      <div>
+        Loading  Page ....
+      </div>
+      :
       <main className="lottoApp">
         <Grid
             container
@@ -65,11 +67,7 @@ class Home extends Component {
                 color="accent"
                 position="absolute"
             >
-            <h1 ref="title">
-              Home
-            </h1>
-            <button onClick={this.handleClick}>Change</button>
-            <input ref="color" />
+            HOME
             </AppBar>
           </Grid >
         </Grid>        
@@ -92,7 +90,8 @@ class Home extends Component {
 function select( state ){
   console.log( state );
   return {
-    color: state.color
+    buttons: state.buttons,
+    isLoading: state.isLoading
   };
 }
 
