@@ -4,34 +4,23 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
-import { fetchLottos, preFetch } from '../../redux/index';
+import { responseFromApi, preFetch } from '../../redux/actions/fetchApi';
 import { connect } from 'react-redux';
+import { utils } from '../../utils/';
 
 class Home extends Component {
+
   constructor( props ) {
     super( props );
-    this.state = {
-      buttons: [],
-      isLoading: this.props.dispatch( preFetch()).isFetching
-    }
+    this.props.dispatch( preFetch());
   }
 
-  // componentWillReceiveProps( nextProps ) {
-  //   if ( nextProps.color !== this.state.color ) {
-  //     this.setState({color: nextProps.color }, () => {
-  //       this.refs.title.style.color = this.state.color;      
-  //     });
-  //   }
-  // }
-
   componentDidMount() {
-    this.props.dispatch(
-      fetchLottos( 'lottos' ))
-      .then( resp => this.setState({
-        buttons: resp.json.data.lottos
-      }, () => this.setState({
-        isLoading: resp.isFetching
-      }))
+    utils.serviceApi( 'lottos' )
+      .then( resp =>
+        this.props.dispatch(
+          responseFromApi( resp.data.lottos )
+        )
       );
   }
 
@@ -48,51 +37,50 @@ class Home extends Component {
 
   render() {
     return (
-      this.state.isLoading ? 
-      <div>
+      this.props.isLoading ? 
+        <div>
         Loading  Page ....
-      </div>
-      :
-      <main className="lottoApp">
-        <Grid
-            container
-            alignItems="center"
-            justify="center"
-            wrap="nowrap"
-            direction="column"
-        >
-          <Grid item xs={12}>
-            <AppBar
+        </div>
+        :
+        <main className="lottoApp">
+          <Grid
+              container
+              alignItems="center"
+              justify="center"
+              wrap="nowrap"
+              direction="column"
+          >
+            <Grid item xs={12}>
+              <AppBar
                 className="AppBar"
                 color="accent"
                 position="absolute"
-            >
-            HOME
-            </AppBar>
-          </Grid >
-        </Grid>        
-        <Grid 
+              >
+              HOME
+              </AppBar>
+            </Grid >
+          </Grid>        
+          <Grid 
             container
             alignItems="center"
             justify="center"
             wrap="nowrap"
             direction="column"
-        >
-          <Paper elevation={4}>
-            {this.buttonsRenderer( this.state.buttons )}
-          </Paper>
-        </Grid >
-      </main>
+          >
+            <Paper elevation={4}>
+              {this.buttonsRenderer( this.props.buttons )}
+            </Paper>
+          </Grid >
+        </main>
     );
   }
 }
 
-function select( state ){
-  console.log( state );
+const mapStateToProps = function( store ) {
   return {
-    buttons: state.buttons,
-    isLoading: state.isLoading
+    buttons: store.api.data,
+    isLoading: store.api.isLoading
   };
 }
 
-export default connect( select )( Home );
+export default connect( mapStateToProps )( Home );
