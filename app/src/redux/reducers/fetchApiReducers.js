@@ -1,11 +1,13 @@
 import {
   PRE_FETCH,
-  RESPONSE_FROM_API
-} from '../actions/fetchApi';
+  FETCH_LOTTOS,
+  FETCH_RAFFLES
+} from '../actions/fetchApiActions';
 
 const initialState = {
-  data: [],
-  isLoading: true
+  lottos: [],
+  isLoading: true,
+  raffle: {}
 }
 
 export function fetcApiReducer( state = initialState, action ) {
@@ -16,9 +18,15 @@ export function fetcApiReducer( state = initialState, action ) {
       isLoading: action.isFetching
     }
     return Object.assign({}, state.isLoading, newState );
-  case RESPONSE_FROM_API:
+  case FETCH_LOTTOS:
     newState = {
-      data: action.json,
+      lottos: action.json,
+      isLoading: action.isFetching
+    };
+    return Object.assign({}, state, newState );
+  case FETCH_RAFFLES:
+    newState = {
+      raffle: action.json,
       isLoading: action.isFetching
     };
     return Object.assign({}, state, newState );

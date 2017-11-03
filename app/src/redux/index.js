@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { fetcApiReducer } from './reducers/fetchApi';
+import { fetcApiReducer } from './reducers/fetchApiReducers';
 
 const rootReducer = combineReducers({
   api: fetcApiReducer

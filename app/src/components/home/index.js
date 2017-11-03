@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './Home.css';
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
-import { responseFromApi, preFetch } from '../../redux/actions/fetchApi';
+import { fetchLottos, preFetch } from '../../redux/actions/fetchApiActions';
 import { connect } from 'react-redux';
 import { utils } from '../../utils/';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
 
@@ -19,7 +19,7 @@ class Home extends Component {
     utils.serviceApi( 'lottos' )
       .then( resp =>
         this.props.dispatch(
-          responseFromApi( resp.data.lottos )
+          fetchLottos( resp.data.lottos )
         )
       );
   }
@@ -27,58 +27,58 @@ class Home extends Component {
   buttonsRenderer( buttons ) {
     return buttons.map(( item, index ) => (
       <Grid key={index} item lg={12}>
-        <Button>
-          {item}
-        </Button >
+        <Link to={"lottos/" + item }>{item}</Link>        
       </Grid >
     )
     );
   }
 
   render() {
-    return (
-      this.props.isLoading ? 
+    if ( this.props.isLoading || !this.props.lottos ) {
+      return (
         <div>
         Loading  Page ....
         </div>
-        :
-        <main className="lottoApp">
-          <Grid
-              container
-              alignItems="center"
-              justify="center"
-              wrap="nowrap"
-              direction="column"
-          >
-            <Grid item xs={12}>
-              <AppBar
-                className="AppBar"
-                color="accent"
-                position="absolute"
-              >
-              HOME
-              </AppBar>
-            </Grid >
-          </Grid>        
-          <Grid 
-            container
-            alignItems="center"
-            justify="center"
-            wrap="nowrap"
-            direction="column"
-          >
-            <Paper elevation={4}>
-              {this.buttonsRenderer( this.props.buttons )}
-            </Paper>
+      )
+    }
+    return (
+      <main className="lottoApp">
+        <Grid
+          container
+          alignItems="center"
+          justify="center"
+          wrap="nowrap"
+          direction="column"
+        >
+          <Grid item xs={12}>
+            <AppBar
+              className="AppBar"
+              color="accent"
+              position="absolute"
+            >
+            HOME
+            </AppBar>
           </Grid >
-        </main>
+        </Grid>        
+        <Grid 
+          container
+          alignItems="center"
+          justify="center"
+          wrap="nowrap"
+          direction="column"
+        >
+          <Paper elevation={4}>
+            {this.buttonsRenderer( this.props.lottos )}
+          </Paper>
+        </Grid >
+      </main>
     );
   }
 }
 
 const mapStateToProps = function( store ) {
   return {
-    buttons: store.api.data,
+    lottos: store.api.lottos,
     isLoading: store.api.isLoading
   };
 }
