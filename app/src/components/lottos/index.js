@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { utils } from '../../utils/';
 import { Link, Route, Switch } from 'react-router-dom';
 import { fetchRaffles, preFetch } from '../../redux/actions/fetchApiActions';
-import Raffles from './raffles';
-import Results from './results';
 
 class Lotto extends Component {
   constructor( props ) {
@@ -36,13 +34,22 @@ class Lotto extends Component {
       <div>
         <div>
           <Switch>
-            <Route path="/lottos/:name/raffle" render={() => ( <Raffles  data={this.props.raffle} /> )} />
-            <Route path="/lottos/:name/results" render={() => ( <Results  data={this.props.raffle} /> )} />
+            <Route path="/lottos/:name/raffle" render={
+              utils.renderComponentRouteCallback( 'raffles', this.props.raffle )
+            }
+            />
+            <Route path="/lottos/:name/results" render={utils.renderComponentRouteCallback( 'results', this.props.raffle )} />
           </Switch>
         </div>
-        <Link to="/">Home</Link>
-        <Link to={"/lottos/" + this.lottoName + "/raffle"}>Raffles</Link>
-        <Link to={"/lottos/" + this.lottoName + "/results"}>Results</Link>
+        <Link to="/">
+          Home
+        </Link>
+        <Link to={utils.buildLinkUrl( this.lottoName, 'raffle' )}>
+          Raffles
+        </Link>
+        <Link to={utils.buildLinkUrl( this.lottoName, 'results' )}>
+          Results
+        </Link>
       </div>
     );
   }

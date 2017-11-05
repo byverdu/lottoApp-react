@@ -170,12 +170,17 @@ describe( 'Utils methods', () => {
       expect( utils ).to.have.property( 'splitString' )
         .and.is.a( 'Function' );
     });
-    it( 'is defined', () => {      
-      expect( utils ).to.have.property( 'splitString' )
-        .and.is.a( 'Function' );
-    });
     it( 'splits a string for a specified delimiter', () => {   const data = '04, 17,23,27,30';
       expect( utils.splitString( data, ',' )).to.eql([ '04' ,'17', '23', '27', '30' ]);
+    });
+  });
+  describe( 'buildLinkUrl method', () => {
+    it( 'is defined', () => {      
+      expect( utils ).to.have.property( 'buildLinkUrl' )
+        .and.is.a( 'Function' );
+    });
+    it( 'returns a string for a url', () => {
+      expect( utils.buildLinkUrl( 'primitiva', 'results' )).to.eql( '/lottos/primitiva/results' );
     });
   });    
 });

@@ -1,4 +1,7 @@
+import React from 'react';
 import axios from 'axios';
+import Raffles from '../components/lottos/raffles';
+import Results from '../components/lottos/results';
 
 const PRIMITVA = {
   totalBalls: 49,
@@ -114,5 +117,32 @@ export const utils = {
    */
   splitString: ( string, delimiter ) => {
     return string.split( delimiter ).map( item => item.trim());
+  },
+
+  /**
+   * @method buildLinkUrl
+   * @description creates url to path dynamicly
+   * @param {String} lottoName name actual lotto
+   * @param {String} routeName url sufix
+   * @returns {String} string for url
+   */
+  buildLinkUrl: ( lottoName, routeName ) => {
+    return `/lottos/${lottoName}/${routeName}`;
+  },
+
+  /**
+   * @method buildLinkUrl
+   * @description creates url to path dynamicly
+   * @param {string} nameComponent name component
+   * @param {Object} props component props
+   * @returns {ReactNode} Component mapped with props
+   */
+  renderComponentRouteCallback( nameComponent, props ) {
+    const mapValues = {
+      raffles: Raffles,
+      results: Results
+    }
+    const TempComponent = mapValues[ nameComponent ];
+    return () => <TempComponent data={props} />
   }
 };
