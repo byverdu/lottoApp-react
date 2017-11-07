@@ -24,6 +24,11 @@ const LOTTO_ID = {
   euromillions: EUROMILLIONS
 }
 
+const ENUM_COMPONENT = {
+  raffles: 'raffles',
+  results: 'results'
+}
+
 /**
  * @constant
  * @description Utils object with methods so it can take
@@ -131,18 +136,32 @@ export const utils = {
   },
 
   /**
-   * @method buildLinkUrl
-   * @description creates url to path dynamicly
+   * @method callbackRenderComponentRoute
+   * @description callback passed to render prop in Route
    * @param {string} nameComponent name component
    * @param {Object} props component props
-   * @returns {ReactNode} Component mapped with props
+   * @returns {any} Component mapped with props
    */
-  renderComponentRouteCallback( nameComponent, props ) {
+  callbackRenderComponentRoute( nameComponent, props ) {
     const mapValues = {
-      raffles: Raffles,
-      results: Results
+      raffles: {
+        component: Raffles,
+        prop: 'mostRepeated'
+      },
+      results: {
+        component: Results,
+        prop: 'lastResult'
+      }
+    };
+
+    const prop = mapValues[ nameComponent ].prop;
+    const TempComponent = mapValues[ nameComponent ].component;
+
+    if ( nameComponent === ENUM_COMPONENT.raffles ) {
+      const extraProps = LOTTO_ID[ props.lottoID ];
+      Object.assign( {}, prop, extraProps );
     }
-    const TempComponent = mapValues[ nameComponent ];
-    return () => <TempComponent data={props} />
+
+    return () => <TempComponent data={props[ prop ]} />
   }
 };

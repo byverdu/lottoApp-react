@@ -32,13 +32,17 @@ class Lotto extends Component {
     }
     return(
       <div>
+        <h1>
+          {this.lottoName}
+        </h1>
         <div>
           <Switch>
             <Route path="/lottos/:name/raffle" render={
-              utils.renderComponentRouteCallback( 'raffles', this.props.raffle )
-            }
-            />
-            <Route path="/lottos/:name/results" render={utils.renderComponentRouteCallback( 'results', this.props.raffle )} />
+              utils.callbackRenderComponentRoute( 'raffles', this.props.raffle )
+            }/>
+            <Route path="/lottos/:name/results" render={
+              utils.callbackRenderComponentRoute( 'results', this.props.raffle )
+            }/>
           </Switch>
         </div>
         <Link to="/">

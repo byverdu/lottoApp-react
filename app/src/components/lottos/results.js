@@ -4,7 +4,7 @@ class Results extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      lastResult: this.props.data.lastResult
+      lastResult: this.props.data
     }
   }
 
