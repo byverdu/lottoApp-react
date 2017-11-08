@@ -165,10 +165,21 @@ export const utils = {
       [ prop ]: props[ prop ]
     };
 
-    if ( nameComponent === ENUM_COMPONENT.raffles ) {
-      const extraProps = LOTTO_ID[ props.lottoID ];
+    let extraProps;
+    switch( nameComponent ) {
+    case ENUM_COMPONENT.raffles:
+      extraProps = LOTTO_ID[ props.lottoID ];
       Object.assign( result, extraProps );
-    }
+      break;
+    case ENUM_COMPONENT.results:
+      extraProps = {
+        date: props.date
+      };
+      Object.assign( result, extraProps );
+      break;
+    default:
+      break;
+    };
 
     return () => <TempComponent data={ result } />
   }

@@ -10,10 +10,11 @@ class Results extends Component {
 
   render() {
     const {
-      lastResult
+      lastResult, date
     } = this.state.data;
     return(
       <div>
+        {date}
         {lastResult}
       </div>
     )
