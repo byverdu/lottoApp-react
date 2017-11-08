@@ -8,6 +8,9 @@ class Lotto extends Component {
   constructor( props ) {
     super( props );
     this.props.dispatch( preFetch());
+
+    this.linkRepeater = this.linkRepeater.bind( this );
+    this.routeRepeater = this.routeRepeater.bind( this );
   }
 
   get lottoName() {
@@ -22,6 +25,45 @@ class Lotto extends Component {
         )
       );
   }
+
+  linkRepeater() {
+    const linksData = { 
+      raffles: 'Raffle',
+      results: 'Results',
+      statistics: 'Statistics'
+    };
+
+    return Object.keys( linksData )
+      .map(( link, key ) => {
+        return (
+          <Link key={key} to={
+            utils.buildLinkUrl( this.lottoName, link )
+          }>
+            {linksData[ link ]}
+          </Link>
+        );
+      })
+  }
+
+  routeRepeater() {
+    const routesData = [
+      'raffles', 'results', 'statistics'
+    ];
+
+    return routesData.map(( route, key ) => {
+      return (
+        <Route
+          key={key}
+          path={"/lottos/:name/" + route}
+          render={
+            utils.callbackRenderComponentRoute(
+              route, this.props.raffle
+            )
+        }/>
+      );
+    });
+  }
+
   render() {
     if ( this.props.isLoading || !this.props.raffle ) {
       return (
@@ -30,6 +72,7 @@ class Lotto extends Component {
         </div>
       )
     }
+    const raffle = 'raffles'
     return(
       <div>
         <h1>
@@ -37,35 +80,13 @@ class Lotto extends Component {
         </h1>
         <div>
           <Switch>
-            <Route path="/lottos/:name/raffle" render={
-              utils.callbackRenderComponentRoute( 'raffles', this.props.raffle )
-            }/>
-            <Route path="/lottos/:name/results" render={
-              utils.callbackRenderComponentRoute( 'results', this.props.raffle )
-            }/>
-            <Route path="/lottos/:name/statistics" render={
-              utils.callbackRenderComponentRoute( 'statistics', this.props.raffle )
-            }/>
+            {this.routeRepeater()}
           </Switch>
         </div>
         <Link to="/">
           Home
         </Link>
-        <Link to={
-          utils.buildLinkUrl( this.lottoName, 'raffle' )
-        }>
-          Raffles
-        </Link>
-        <Link to={
-          utils.buildLinkUrl( this.lottoName, 'results' )
-        }>
-          Results
-        </Link>
-        <Link to={
-          utils.buildLinkUrl( this.lottoName, 'statistics' )
-        }>
-          Statistics
-        </Link>
+        {this.linkRepeater()}
       </div>
     );
   }

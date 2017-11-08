@@ -27,7 +27,7 @@ class Home extends Component {
   buttonsRenderer( buttons ) {
     return buttons.map(( item, index ) => (
       <Grid key={index} item lg={12}>
-        <Link to={"lottos/" + item + "/raffle"}>{item}</Link>        
+        <Link to={"lottos/" + item + "/raffles"}>{item}</Link>        
       </Grid >
     )
     );
