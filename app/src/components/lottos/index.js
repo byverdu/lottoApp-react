@@ -43,16 +43,28 @@ class Lotto extends Component {
             <Route path="/lottos/:name/results" render={
               utils.callbackRenderComponentRoute( 'results', this.props.raffle )
             }/>
+            <Route path="/lottos/:name/statistics" render={
+              utils.callbackRenderComponentRoute( 'statistics', this.props.raffle )
+            }/>
           </Switch>
         </div>
         <Link to="/">
           Home
         </Link>
-        <Link to={utils.buildLinkUrl( this.lottoName, 'raffle' )}>
+        <Link to={
+          utils.buildLinkUrl( this.lottoName, 'raffle' )
+        }>
           Raffles
         </Link>
-        <Link to={utils.buildLinkUrl( this.lottoName, 'results' )}>
+        <Link to={
+          utils.buildLinkUrl( this.lottoName, 'results' )
+        }>
           Results
+        </Link>
+        <Link to={
+          utils.buildLinkUrl( this.lottoName, 'statistics' )
+        }>
+          Statistics
         </Link>
       </div>
     );

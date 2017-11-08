@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Raffles from '../components/lottos/raffles';
 import Results from '../components/lottos/results';
+import Statistics from '../components/lottos/statistics';
 
 const PRIMITVA = {
   totalBalls: 49,
@@ -151,6 +152,10 @@ export const utils = {
       results: {
         component: Results,
         prop: 'lastResult'
+      },
+      statistics: {
+        component: Statistics,
+        prop: 'statistics'
       }
     };
 
