@@ -4,14 +4,17 @@ class Results extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      lastResult: this.props.data
+      data: this.props.data
     }
   }
 
   render() {
+    const {
+      lastResult
+    } = this.state.data;
     return(
       <div>
-        {this.state.lastResult}
+        {lastResult}
       </div>
     )
   }

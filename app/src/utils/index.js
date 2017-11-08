@@ -156,12 +156,15 @@ export const utils = {
 
     const prop = mapValues[ nameComponent ].prop;
     const TempComponent = mapValues[ nameComponent ].component;
+    const result = {
+      [ prop ]: props[ prop ]
+    };
 
     if ( nameComponent === ENUM_COMPONENT.raffles ) {
       const extraProps = LOTTO_ID[ props.lottoID ];
-      Object.assign( {}, prop, extraProps );
+      Object.assign( result, extraProps );
     }
 
-    return () => <TempComponent data={props[ prop ]} />
+    return () => <TempComponent data={ result } />
   }
 };
