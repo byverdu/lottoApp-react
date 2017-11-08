@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import Raffles from '../components/lottos/raffles';
-import Results from '../components/lottos/results';
-import Statistics from '../components/lottos/statistics';
+import Raffles from '../containers/lottos/raffles';
+import Results from '../containers/lottos/results';
+import Statistics from '../containers/lottos/statistics';
 
 const PRIMITVA = {
   totalBalls: 49,

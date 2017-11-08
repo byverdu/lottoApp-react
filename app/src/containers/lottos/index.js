@@ -36,7 +36,7 @@ class Lotto extends Component {
     return Object.keys( linksData )
       .map(( link, key ) => {
         return (
-          <Link key={key} to={
+          <Link className="link" key={key} to={
             utils.buildLinkUrl( this.lottoName, link )
           }>
             {linksData[ link ]}
@@ -72,7 +72,6 @@ class Lotto extends Component {
         </div>
       )
     }
-    const raffle = 'raffles'
     return(
       <div>
         <h1>
