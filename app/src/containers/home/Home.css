@@ -22,3 +22,15 @@
   height: 30px;
   padding: 12px 6px 0px;
   text-align: center; }
+
+.greenItem {
+  background: greenyellow; }
+
+.orangeItem {
+  background: #f8bb04; }
+
+.redItem {
+  background: #e73942; }
+
+.stats {
+  display: inline-block; }
