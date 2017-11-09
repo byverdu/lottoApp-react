@@ -3,6 +3,7 @@ import axios from 'axios';
 import Raffles from '../containers/lottos/raffles';
 import Results from '../containers/lottos/results';
 import Statistics from '../containers/lottos/statistics';
+import Ball from '../components/ball';
 
 const PRIMITVA = {
   totalBalls: 49,
@@ -29,6 +30,21 @@ const ENUM_COMPONENT = {
   raffles: 'raffles',
   results: 'results'
 }
+
+const mapValues = {
+  raffles: {
+    component: Raffles,
+    prop: 'mostRepeated'
+  },
+  results: {
+    component: Results,
+    prop: 'lastResult'
+  },
+  statistics: {
+    component: Statistics,
+    prop: 'statistics'
+  }
+};
 
 /**
  * @constant
@@ -144,20 +160,6 @@ export const utils = {
    * @returns {any} Component mapped with props
    */
   callbackRenderComponentRoute( nameComponent, props ) {
-    const mapValues = {
-      raffles: {
-        component: Raffles,
-        prop: 'mostRepeated'
-      },
-      results: {
-        component: Results,
-        prop: 'lastResult'
-      },
-      statistics: {
-        component: Statistics,
-        prop: 'statistics'
-      }
-    };
 
     const prop = mapValues[ nameComponent ].prop;
     const TempComponent = mapValues[ nameComponent ].component;
@@ -182,5 +184,15 @@ export const utils = {
     };
 
     return () => <TempComponent data={ result } />
+  },
+
+  printBall( method, numbers ) {
+    const balls = method( numbers, ',' );
+    
+    return balls.map(( ball, key ) => {
+      return(
+        <Ball key={key} value={ball}/>
+      );
+    });
   }
 };

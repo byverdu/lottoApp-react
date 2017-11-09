@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { utils } from '../../utils/';
 
 class Raffles extends Component {
   constructor( props ) {
@@ -15,7 +16,7 @@ class Raffles extends Component {
     } = this.state.data;
     return(
       <div>
-        {mostRepeated}
+        {utils.printBall( utils.splitString, mostRepeated )}
       </div>
     )
   }

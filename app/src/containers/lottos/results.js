@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { utils } from '../../utils/';
 
 class Results extends Component {
   constructor( props ) {
@@ -14,8 +15,10 @@ class Results extends Component {
     } = this.state.data;
     return(
       <div>
-        {date}
-        {lastResult}
+        <h1>
+          {date}
+        </h1>
+        {utils.printBall( utils.splitString, lastResult )}
       </div>
     )
   }
