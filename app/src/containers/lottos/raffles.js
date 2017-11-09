@@ -17,10 +17,27 @@ class Raffles extends Component {
     return utils.splitString( this.mostRepeated, ',' );
   }
 
+  get raffleBalls() {
+    const ballsInRaffle = [];
+    const totalBalls = this.props.data.totalBalls;
+
+    for ( let i = 1; i <= totalBalls; i++ ) {
+      ballsInRaffle.push( i );
+    }
+
+    return ballsInRaffle;
+  }
+
   render() {
     return(
       <div>
-        {utils.printBall( this.mostRepeatedBalls )}
+        <div>
+          {utils.printBall( this.mostRepeatedBalls )}
+        </div>
+        <hr />
+        <div>
+          {utils.printBall( this.raffleBalls )}
+        </div>
       </div>
     )
   }

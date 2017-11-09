@@ -13,6 +13,7 @@
   display: block; }
 
 .ball {
+  display: inline-block;
   background: rgba(32, 119, 170, 0.849);
   border: 1px solid transparent;
   border-radius: 50%;
