@@ -9,14 +9,18 @@ class Raffles extends Component {
     }
   }
 
+  get mostRepeated() {
+    return this.props.data.mostRepeated;
+  }
+
+  get mostRepeatedBalls() {
+    return utils.splitString( this.mostRepeated, ',' );
+  }
+
   render() {
-    console.log(this.props)
-    const {
-      mostRepeated
-    } = this.state.data;
     return(
       <div>
-        {utils.printBall( utils.splitString, mostRepeated )}
+        {utils.printBall( this.mostRepeatedBalls )}
       </div>
     )
   }

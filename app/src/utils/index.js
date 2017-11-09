@@ -186,10 +186,8 @@ export const utils = {
     return () => <TempComponent data={ result } />
   },
 
-  printBall( method, numbers ) {
-    const balls = method( numbers, ',' );
-    
-    return balls.map(( ball, key ) => {
+  printBall( ballValues ) {
+    return ballValues.map(( ball, key ) => {
       return(
         <Ball key={key} value={ball}/>
       );

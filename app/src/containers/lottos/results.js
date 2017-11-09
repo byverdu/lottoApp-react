@@ -9,16 +9,24 @@ class Results extends Component {
     }
   }
 
+  get lastResult() {
+    return this.props.data.lastResult;
+  }
+
+  get lastResultBalls() {
+    return utils.splitString( this.lastResult, ',' );
+  }
+
   render() {
     const {
-      lastResult, date
+      date
     } = this.state.data;
     return(
       <div>
         <h1>
           {date}
         </h1>
-        {utils.printBall( utils.splitString, lastResult )}
+        {utils.printBall( this.lastResultBalls )}
       </div>
     )
   }
