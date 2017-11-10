@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { utils } from '../../utils/';
 import { Link, Route, Switch } from 'react-router-dom';
 import { fetchRaffles, preFetch } from '../../redux/actions/fetchApiActions';
+import Winners from './winners';
 
 class Lotto extends Component {
   constructor( props ) {
@@ -30,7 +31,8 @@ class Lotto extends Component {
     const linksData = { 
       raffles: 'Raffle',
       results: 'Results',
-      statistics: 'Statistics'
+      statistics: 'Statistics',
+      winners: 'Winners'
     };
 
     return Object.keys( linksData )
@@ -80,6 +82,7 @@ class Lotto extends Component {
         <div>
           <Switch>
             {this.routeRepeater()}
+            <Route path="/lottos/:name/winners" component={Winners}/>
           </Switch>
         </div>
         <Link to="/">
