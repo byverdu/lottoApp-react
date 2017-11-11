@@ -166,7 +166,8 @@ export const utils = {
     const prop = mapValues[ nameComponent ].prop;
     const TempComponent = mapValues[ nameComponent ].component;
     const result = {
-      [ prop ]: props[ prop ]
+      [ prop ]: props[ prop ],
+      lottoID: props.lottoID
     };
 
     let extraProps;

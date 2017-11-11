@@ -8,11 +8,25 @@ class Raffles extends Component {
       data: this.props.data,
       selectedNumbers: []
     }
-
+    console.log(props)
     this.onChangeHandler = this.onChangeHandler.bind( this );
     this.clearHandler = this.clearHandler.bind( this );
       this.randomHandler = this.randomHandler.bind( this );
       this.buttonsBuilder = this.buttonsBuilder.bind( this );
+  }
+
+  // lifeCycle methods
+
+  componentDidMount() {
+    const savedRaffle = window.localStorage.getItem( this.localStorageID );
+    if ( savedRaffle ) {
+      const parsedJSON = JSON.parse( savedRaffle );
+      this.setState({ selectedNumbers: parsedJSON })
+    }
+  }
+
+  componentWillUnmount() {
+    window.localStorage.setItem( this.localStorageID, JSON.stringify( this.state.selectedNumbers ));
   }
 
   // Getters
@@ -45,6 +59,10 @@ class Raffles extends Component {
     }
 
     return ballsInRaffle;
+  }
+
+  get localStorageID() {
+    return `${this.state.data.lottoID}SavedRaffle`;
   }
 
   // repeaters
@@ -87,7 +105,8 @@ class Raffles extends Component {
   clearHandler() {
     Array.from( document.querySelectorAll( 'input:checked' ))
       .forEach( element => element.checked = false );
-    this.setState({selectedNumbers: []})    
+    this.setState({selectedNumbers: []})
+    window.localStorage.removeItem( this.localStorageID );
   }
 
   randomHandler() {
