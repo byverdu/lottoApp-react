@@ -76,8 +76,11 @@ export const utils = {
     let counter = 1;
 
     while ( counter <= count ) {
-      const random = Math.ceil( Math.random() * totalBalls );      
+      let random = Math.ceil( Math.random() * totalBalls );      
       if ( randomNumbers.indexOf( random ) === -1 ) {
+        if ( random < 10 ) {
+          random = `0${random}`
+        }
         randomNumbers.push( random );
         counter += 1;
       }

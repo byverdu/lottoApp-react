@@ -8,11 +8,14 @@ class Raffles extends Component {
       data: this.props.data,
       selectedNumbers: []
     }
-    console.log(props)
+
     this.onChangeHandler = this.onChangeHandler.bind( this );
     this.clearHandler = this.clearHandler.bind( this );
-    this.randomHandler = this.randomHandler.bind( this );
+      this.randomHandler = this.randomHandler.bind( this );
+      this.buttonsBuilder = this.buttonsBuilder.bind( this );
   }
+
+  // Getters
 
   get mostRepeated() {
     return this.props.data.mostRepeated;
@@ -44,8 +47,27 @@ class Raffles extends Component {
     return ballsInRaffle;
   }
 
+  // repeaters
+
+  buttonsBuilder() {
+    const btnData = [
+      { text: 'Clear', action: this.clearHandler },
+      { text: 'Random', action: this.randomHandler },
+      { text: 'Save', action: this.saveHandler }
+    ];
+
+    return btnData.map(( btn, key ) => {
+      return(
+        <button key={key} onClick={btn.action}>
+          {btn.text}
+        </button>
+      );
+    });
+  }
+
+  // event handlers
+
   onChangeHandler( event ) {
-    console.log(event.target.value);
     const value = event.target.value;
     const selectedNumbers = this.state.selectedNumbers;
     const positionAt = selectedNumbers.indexOf( value );
@@ -75,6 +97,10 @@ class Raffles extends Component {
     this.setState({selectedNumbers: randomValues})    
   }
 
+  saveHandler() {
+
+  }
+
   render() {
     return(
       <div>
@@ -90,12 +116,7 @@ class Raffles extends Component {
             Selected numbers
           </h3>
           <div>
-            <button onClick={this.clearHandler}>
-              Clear
-            </button>
-            <button onClick={this.randomHandler}>
-              Random
-            </button>
+            {this.buttonsBuilder()}
           </div>
           {utils.printBall( this.state.selectedNumbers, 'orangeItem' )}          
         </div>
