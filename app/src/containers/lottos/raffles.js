@@ -11,6 +11,7 @@ class Raffles extends Component {
     console.log(props)
     this.onChangeHandler = this.onChangeHandler.bind( this );
     this.clearHandler = this.clearHandler.bind( this );
+    this.randomHandler = this.randomHandler.bind( this );
   }
 
   get mostRepeated() {
@@ -24,10 +25,14 @@ class Raffles extends Component {
   get rafflesCount() {
     return this.state.data.count;
   }
+
+  get rafflesTotalBalls() {
+    return this.state.data.totalBalls;
+  }
  
   get raffleBalls() {
     const ballsInRaffle = [];
-    const totalBalls = this.props.data.totalBalls;
+    const totalBalls = this.rafflesTotalBalls;
 
     for ( let i = 1; i <= totalBalls; i++ ) {
       if ( i < 10 ) {
@@ -63,6 +68,13 @@ class Raffles extends Component {
     this.setState({selectedNumbers: []})    
   }
 
+  randomHandler() {
+    const randomValues = utils.getRandomNumbers(
+      this.rafflesCount, this.rafflesTotalBalls
+    )
+    this.setState({selectedNumbers: randomValues})    
+  }
+
   render() {
     return(
       <div>
@@ -80,6 +92,9 @@ class Raffles extends Component {
           <div>
             <button onClick={this.clearHandler}>
               Clear
+            </button>
+            <button onClick={this.randomHandler}>
+              Random
             </button>
           </div>
           {utils.printBall( this.state.selectedNumbers, 'orangeItem' )}          

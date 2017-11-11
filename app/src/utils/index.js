@@ -71,13 +71,12 @@ export const utils = {
    * @param {string} lottoId raffle id to work with
    * @returns {Array} Sorted random numbers
    */
-  getRandomNumbers: ( lottoId ) => {
-    const data = LOTTO_ID[ lottoId ];
+  getRandomNumbers: ( count, totalBalls ) => {
     const randomNumbers = [];
     let counter = 1;
 
-    while ( counter <= data.count ) {
-      const random = Math.floor( Math.random() * data.totalBalls );      
+    while ( counter <= count ) {
+      const random = Math.ceil( Math.random() * totalBalls );      
       if ( randomNumbers.indexOf( random ) === -1 ) {
         randomNumbers.push( random );
         counter += 1;
