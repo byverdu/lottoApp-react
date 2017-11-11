@@ -40,3 +40,12 @@
 .stats {
   display: inline-block;
 }
+
+input[type="checkbox"] {
+  position: absolute;
+  top: -99999px;
+}
+
+input:checked + .ball {
+  background: rgb(231, 57, 66);
+}

@@ -5,8 +5,12 @@ class Raffles extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      data: this.props.data
+      data: this.props.data,
+      selectedNumbers: []
     }
+    console.log(props)
+    this.onChangeHandler = this.onChangeHandler.bind( this );
+    this.clearHandler = this.clearHandler.bind( this );
   }
 
   get mostRepeated() {
@@ -17,15 +21,46 @@ class Raffles extends Component {
     return utils.splitString( this.mostRepeated, ',' );
   }
 
+  get rafflesCount() {
+    return this.state.data.count;
+  }
+ 
   get raffleBalls() {
     const ballsInRaffle = [];
     const totalBalls = this.props.data.totalBalls;
 
     for ( let i = 1; i <= totalBalls; i++ ) {
+      if ( i < 10 ) {
+        i = `0${i}`;
+      }
       ballsInRaffle.push( i );
     }
 
     return ballsInRaffle;
+  }
+
+  onChangeHandler( event ) {
+    console.log(event.target.value);
+    const value = event.target.value;
+    const selectedNumbers = this.state.selectedNumbers;
+    const positionAt = selectedNumbers.indexOf( value );
+    if ( positionAt === -1 ) {
+      selectedNumbers.push( value );
+    } else {
+      selectedNumbers.splice( positionAt, 1 );
+    }
+    selectedNumbers.sort(( a, b ) => a - b );
+    if ( selectedNumbers.length > this.rafflesCount ) {
+      event.target.checked = false;
+      return;
+    }
+    this.setState({selectedNumbers: selectedNumbers})
+  }
+
+  clearHandler() {
+    Array.from( document.querySelectorAll( 'input:checked' ))
+      .forEach( element => element.checked = false );
+    this.setState({selectedNumbers: []})    
   }
 
   render() {
@@ -36,7 +71,18 @@ class Raffles extends Component {
         </div>
         <hr />
         <div>
-          {utils.printBall( this.raffleBalls )}
+          {utils.printInputBall( this.raffleBalls, true, this.onChangeHandler )}
+        </div>
+        <div>
+          <h3>
+            Selected numbers
+          </h3>
+          <div>
+            <button onClick={this.clearHandler}>
+              Clear
+            </button>
+          </div>
+          {utils.printBall( this.state.selectedNumbers, 'orangeItem' )}          
         </div>
       </div>
     )

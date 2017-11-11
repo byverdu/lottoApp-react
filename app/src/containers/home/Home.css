@@ -34,3 +34,10 @@
 
 .stats {
   display: inline-block; }
+
+input[type="checkbox"] {
+  position: absolute;
+  top: -99999px; }
+
+input:checked + .ball {
+  background: #e73942; }

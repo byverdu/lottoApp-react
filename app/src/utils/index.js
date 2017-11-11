@@ -186,10 +186,18 @@ export const utils = {
     return () => <TempComponent data={ result } />
   },
 
-  printBall( ballValues ) {
+  printBall( ballValues, color ) {
     return ballValues.map(( ball, key ) => {
       return(
-        <Ball key={key} value={ball}/>
+        <Ball key={key} value={ball} color={color}/>
+      );
+    });
+  },
+
+  printInputBall( ballValues, isInput, onChangeHandler ) {
+    return ballValues.map(( ball, key ) => {
+      return(
+        <Ball key={key} value={ball} isInput={isInput} onChangeHandler={onChangeHandler}/>
       );
     });
   }
