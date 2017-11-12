@@ -11,7 +11,6 @@ class Raffles extends Component {
       selectedNumbers: [],
       savedCount: this.savedCount
     }
-    console.log(props)
     this.onChangeHandler = this.onChangeHandler.bind( this );
     this.clearHandler = this.clearHandler.bind( this );
     this.randomHandler = this.randomHandler.bind( this );

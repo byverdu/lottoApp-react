@@ -78,14 +78,13 @@ export const utils = {
     while ( counter <= count ) {
       let random = Math.ceil( Math.random() * totalBalls );      
       if ( randomNumbers.indexOf( random ) === -1 ) {
-        if ( random < 10 ) {
-          random = `0${random}`
-        }
         randomNumbers.push( random );
         counter += 1;
       }
     }
-    return randomNumbers.sort(( a, b ) => a - b );
+    return randomNumbers
+      .map( random => random < 10 ? random = `0${random}` : random )
+      .sort(( a, b ) => a - b );
   },
 
   /**
