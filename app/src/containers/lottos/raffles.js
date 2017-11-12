@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { utils } from '../../utils/';
+import { connect } from 'react-redux';
+import { savedRaffleAction } from '../../redux/actions/savedRaffleActions';
 
 class Raffles extends Component {
   constructor( props ) {
     super( props );
     this.state = {
       data: this.props.data,
-      selectedNumbers: []
+      selectedNumbers: [],
+      savedCount: this.savedCount
     }
     console.log(props)
     this.onChangeHandler = this.onChangeHandler.bind( this );
     this.clearHandler = this.clearHandler.bind( this );
-      this.randomHandler = this.randomHandler.bind( this );
-      this.buttonsBuilder = this.buttonsBuilder.bind( this );
+    this.randomHandler = this.randomHandler.bind( this );
+    this.saveHandler = this.saveHandler.bind( this );
+    this.buttonsBuilder = this.buttonsBuilder.bind( this );
   }
 
   // lifeCycle methods
@@ -61,8 +65,16 @@ class Raffles extends Component {
     return ballsInRaffle;
   }
 
+  get lottoID() {
+    return this.state.data.lottoID;
+  }
+
   get localStorageID() {
-    return `${this.state.data.lottoID}SavedRaffle`;
+    return `${this.lottoID}SavedRaffle`;
+  }
+
+  get savedCount() {
+    return this.props.savedRaffle[ this.props.data.lottoID ].length;
   }
 
   // repeaters
@@ -113,11 +125,14 @@ class Raffles extends Component {
     const randomValues = utils.getRandomNumbers(
       this.rafflesCount, this.rafflesTotalBalls
     )
-    this.setState({selectedNumbers: randomValues})    
+    this.setState({selectedNumbers: randomValues})
   }
 
   saveHandler() {
-
+    this.props.dispatch( savedRaffleAction(
+      this.lottoID, this.state.selectedNumbers
+    ));
+    this.setState({savedCount: this.savedCount})    
   }
 
   render() {
@@ -134,6 +149,9 @@ class Raffles extends Component {
           <h3>
             Selected numbers
           </h3>
+          <h6>
+            SavedRaffle {this.state.savedCount}
+          </h6>
           <div>
             {this.buttonsBuilder()}
           </div>
@@ -144,4 +162,10 @@ class Raffles extends Component {
   }
 }
 
-export default Raffles;
+const mapStateToProps = function( store ) {
+  return {
+    savedRaffle: store.savedRaffle
+  };
+}
+
+export default connect( mapStateToProps )( Raffles );
