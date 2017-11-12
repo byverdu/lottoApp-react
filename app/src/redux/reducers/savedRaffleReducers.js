@@ -2,11 +2,21 @@ import {
   SAVE_RAFFLE, DELETE_RAFFLE
 } from '../actions/savedRaffleActions';
 
-const initialState = {
-  euromillions: [],
-  bonoloto: [],
-  primitiva: []
+function getInitialState() {
+  const savedRaffle = window.localStorage.getItem(
+    'savedRaffle'
+  );
+  if ( savedRaffle ) {
+    return JSON.parse( savedRaffle );
+  }
+  return {
+    euromillions: [],
+    bonoloto: [],
+    primitiva: []
+  }
 }
+
+const initialState = getInitialState();
 
 export function savedRaffleReducer( state = initialState, action ) {
   let startCount;

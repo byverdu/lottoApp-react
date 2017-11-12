@@ -21,15 +21,24 @@ class Raffles extends Component {
   // lifeCycle methods
 
   componentDidMount() {
-    const savedRaffle = window.localStorage.getItem( this.localStorageID );
-    if ( savedRaffle ) {
-      const parsedJSON = JSON.parse( savedRaffle );
+    const localStorageID = window.localStorage.getItem(
+      this.localStorageID
+    );
+    if ( localStorageID ) {
+      const parsedJSON = JSON.parse( localStorageID );
       this.setState({ selectedNumbers: parsedJSON })
     }
   }
 
   componentWillUnmount() {
-    window.localStorage.setItem( this.localStorageID, JSON.stringify( this.state.selectedNumbers ));
+    window.localStorage.setItem(
+      this.localStorageID,
+      JSON.stringify( this.state.selectedNumbers )
+    );
+    window.localStorage.setItem(
+      'savedRaffle',
+      JSON.stringify( this.props.savedRaffle )
+    );
   }
 
   // Getters
