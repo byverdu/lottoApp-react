@@ -23,14 +23,19 @@ export function savedRaffleReducer( state = initialState, action ) {
   let deleteCount;
   switch( action.type ) {
   case SAVE_RAFFLE:
-    const newState = state[ action.lottoID ].slice();
+    const newStateSave = state[ action.lottoID ].slice();
     startCount = 0;
     deleteCount = 0;
-    newState.splice( startCount, deleteCount, action.raffle );
-    state[ action.lottoID ] = newState;
+    newStateSave.splice( startCount, deleteCount, action.raffle );
+    state[ action.lottoID ] = newStateSave;
     return state;
   case DELETE_RAFFLE:
-    return ;
+    const newStateDelete = state[ action.lottoID ].slice();
+    startCount = action.rafflePosition;
+    deleteCount = 1;
+    newStateDelete.splice( startCount, deleteCount );
+    state[ action.lottoID ] = newStateDelete;
+    return state;
   default:
     return initialState;
   }

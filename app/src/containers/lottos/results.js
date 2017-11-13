@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { utils } from '../../utils/';
 import { connect } from 'react-redux';
+import { deleteRaffleAction } from '../../redux/actions/savedRaffleActions';
 
 class Results extends Component {
   constructor( props ) {
@@ -12,6 +13,7 @@ class Results extends Component {
     this.clearHandler = this.clearHandler.bind( this );
     this.checkHandler = this.checkHandler.bind( this );
     this.buttonsBuilder = this.buttonsBuilder.bind( this );    
+    this.deleteHandler = this.deleteHandler.bind( this );    
   }
 
   // Getters
@@ -31,8 +33,11 @@ class Results extends Component {
   printSavedRaffle() {
     return this.props.savedRaffle[ this.lottoID ].map(( ball, key ) => {
       return(
-        <div key={key} id={"row" + key}>
+        <div key={key} ref={"row" + key}>
           {utils.printBall( ball )}
+          <button onClick={() => this.deleteHandler( key )}>
+            Delete
+          </button>
         </div>
       )
     });
@@ -78,13 +83,19 @@ class Results extends Component {
   
     posRepeated.forEach(( repeatedItem, index ) => {
       if ( repeatedItem ) {
-        const allBalls = document.getElementById( `row${repeatedItem}` ).getElementsByClassName( 'ball' );
+        const allBalls = this.refs[ `row${repeatedItem}` ].getElementsByClassName( 'ball' );
 
         for ( let i = 0; i < repeated[ index ].length; i ++ ) {
           allBalls[ repeated[ index ][ i ] ].classList.add( 'redItem' );
         }
       }
     });
+
+  }
+  
+  deleteHandler( id ) {
+    this.refs[ `row${id}` ].remove();
+    this.props.dispatch( deleteRaffleAction( this.lottoID, id ));
   }
 
   render() {

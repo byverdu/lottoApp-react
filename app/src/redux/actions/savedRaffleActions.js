@@ -9,10 +9,10 @@ export function savedRaffleAction( lottoID, raffle ) {
   }
 }
 
-export function deleteRaffleAction( lottoID, raffle ) {
+export function deleteRaffleAction( lottoID, rafflePosition ) {
   return {
     type: DELETE_RAFFLE,
-    raffle,
+    rafflePosition,
     lottoID
   }
 }
