@@ -20,8 +20,11 @@ class Ball extends Component {
         </label>
       );
     } else {
+      const withColor = color ?
+        `ball ${color}` :
+        'ball';
       return(
-        <div className={"ball " + color}>
+        <div className={withColor}>
           {value}
         </div>
       );

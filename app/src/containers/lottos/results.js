@@ -9,6 +9,9 @@ class Results extends Component {
       data: this.props.data
     }
     this.printSavedRaffle = this.printSavedRaffle.bind( this );
+    this.clearHandler = this.clearHandler.bind( this );
+    this.checkHandler = this.checkHandler.bind( this );
+    this.buttonsBuilder = this.buttonsBuilder.bind( this );    
   }
 
   // Getters
@@ -28,10 +31,59 @@ class Results extends Component {
   printSavedRaffle() {
     return this.props.savedRaffle[ this.lottoID ].map(( ball, key ) => {
       return(
-        <div key={key}>
+        <div key={key} id={"row" + key}>
           {utils.printBall( ball )}
         </div>
       )
+    });
+  }
+
+  // repeaters
+
+  buttonsBuilder() {
+    const btnData = [
+      { text: 'Clear', action: this.clearHandler },
+      { text: 'Check', action: this.checkHandler }
+    ];
+
+    return btnData.map(( btn, key ) => {
+      return(
+        <button key={key} onClick={btn.action}>
+          {btn.text}
+        </button>
+      );
+    });
+  }
+
+  // event handlers
+
+  clearHandler() {
+    Array.from(
+      document.querySelectorAll( '.redItem' )
+    ).forEach( elem => elem.classList.remove( 'redItem' ));
+  }
+
+  checkHandler() {
+    const repeated = utils.checkRepeated(
+      this.lastResult,
+      this.props.savedRaffle,
+      this.lottoID
+    );
+
+    const posRepeated = repeated.map(( checked, index ) => {
+      if ( checked.length > 0 ) {
+        return index;
+      }
+    })
+  
+    posRepeated.forEach(( repeatedItem, index ) => {
+      if ( repeatedItem ) {
+        const allBalls = document.getElementById( `row${repeatedItem}` ).getElementsByClassName( 'ball' );
+
+        for ( let i = 0; i < repeated[ index ].length; i ++ ) {
+          allBalls[ repeated[ index ][ i ] ].classList.add( 'redItem' );
+        }
+      }
     });
   }
 
@@ -49,6 +101,9 @@ class Results extends Component {
           <h5>
             SavedRaffle
           </h5>
+          <div>
+            {this.buttonsBuilder()}
+          </div>
           {this.printSavedRaffle()}
         </div>
       </div>

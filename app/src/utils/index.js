@@ -113,13 +113,14 @@ export const utils = {
    * and saved combinations
    * @param {Array} lastResult array with last result
    * @param {Array} savedCombinations array with saved combinations
+   * @param {String} lottoID 
    * @returns {Array} with indexes for repeated items
    */
-  checkRepeated: ( lastResult, savedCombinations ) => {
+  checkRepeated: ( lastResult, savedCombinations, lottoID ) => {
     const repeatedPositions = [];
     const isRepeated = ( saved ) => lastResult.indexOf( saved ) !== -1
 
-    savedCombinations.forEach( parent => {
+    savedCombinations[ lottoID ].forEach( parent => {
       const temp = [];
       parent.forEach(( children, position ) => {
         if ( isRepeated( children )) {
